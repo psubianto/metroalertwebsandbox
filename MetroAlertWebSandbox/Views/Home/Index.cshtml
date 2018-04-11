@@ -1,0 +1,322 @@
+﻿
+@{
+	ViewBag.Title = "Index";
+}
+
+<div class="container-fluid">
+
+	<div class="row">
+		<div id="sidebar" class="panel-wrap">
+			@(Html.Kendo().ResponsivePanel()
+				.Name("sidebar")
+				.AutoClose(true)
+				.Breakpoint(1000)
+				.Orientation("left")
+				.Content(@<text>
+							@(Html.Kendo().PanelBar()
+								.Name("panelbar")
+								.ExpandMode(PanelBarExpandMode.Multiple)
+								.Events(e => e.Expand("panelbar_expand").Collapse("panelbar_collapse"))
+								.Items(panelbar =>
+								{
+									panelbar.Add().Text("Favorites")
+										.Expanded(true)
+										.Items(favorite =>
+										{
+											favorite.Add().Text("Persons");
+											favorite.Add().Text("Settings");
+										});
+
+									panelbar.Add().Text("Incidents")
+									.Expanded(true)
+									.Items(incidents =>
+									{
+										incidents.Add().Text("Search Incident");
+
+										incidents.Add().Text("New Incident");
+										incidents.Add().Text("Selected Incident")
+											.Items(incident =>
+											{
+												incident.Add().Text("Persons");
+												incident.Add().Text("Vehicles");
+												incident.Add().Text("Summaries");
+												incident.Add().Text("Accidents");
+												incident.Add().Text("Additional Officers");
+												incident.Add().Text("Multimedia");
+												incident.Add().Text("Property");
+												incident.Add().Text("Evidence");
+												incident.Add().Text("Search Warrants");
+												incident.Add().Text("Weapons");
+											});
+									});
+
+									panelbar.Add().Text("Investigations")
+									.Expanded(true)
+										.Items(investigation =>
+										{
+											investigation.Add().Text("Case Management");
+											investigation.Add().Text("Data Interrogator");
+											investigation.Add().Text("Dossier");
+											investigation.Add().Text("LEJIS");
+											investigation.Add().Text("CLEAN");
+										});
+
+									panelbar.Add().Text("Reports");
+									panelbar.Add().Text("Utilities").Enabled(false);
+								})
+							)
+						</text>).Deferred()
+			)
+		</div>
+		<div id="main-content">
+			<p>Main Screen</p>
+		</div>
+
+	</div>
+	<div class="row">
+		<div class="col">Footer</div>
+	</div>
+</div>
+
+<script>
+	function myFunction() {
+		alert("Hello World");
+	}
+	function panelbar_collapse() {
+		alert("Panel collapsed");
+	}
+
+	function panelbar_expand() {
+		alert("Panel expanded");
+	}
+</script>
+
+<style>
+	#example {
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		overflow: hidden;
+	}
+
+	.dash-head {
+		width: 970px;
+		height: 80px;
+		background-color: #222;
+		position: relative;
+	}
+
+	.dash-head .k-rpanel-toggle {
+		position: absolute;
+		width: 40px;
+		height: 40px;
+		top: 20px;
+		left: 20px;
+	}
+
+	.panel-wrap {
+		max-width: 968px;
+		background-color: #f5f5f5;
+		border: 1px solid #e5e5e5;
+		position: relative;
+	}
+
+	#sidebar {
+		margin: 0;
+		padding: 20px 0 20px 20px;
+		vertical-align: top;
+	}
+
+	@@media (max-width: 1000px) {
+		#sidebar {
+			background: #fff;
+			padding: 20px;
+			border-left: 1px solid #e5e5e5;
+
+			/* show sidebar in container, demo only*/
+			position: absolute;
+			top: 0;
+			bottom: 0;
+		}
+
+		#sidebar.k-rpanel-expanded {
+			box-shadow: 0 0 10px rgba(0,0,0,.3);
+		}
+	}
+
+	#main-content {
+		overflow: hidden;
+		margin: 0;
+		padding: 20px;
+		min-height: 580px;
+		vertical-align: top;
+	}
+
+	/* WIDGETS */
+	.widget {
+		margin: 0 0 20px;
+		padding: 0;
+		background-color: #ffffff;
+		border: 1px solid #e7e7e7;
+		border-radius: 3px;
+	}
+
+	.widget div {
+		padding: 10px;
+		min-height: 50px;
+	}
+
+	.widget h3 {
+		font-size: 12px;
+		padding: 8px 10px;
+		text-transform: uppercase;
+		border-bottom: 1px solid #e7e7e7;
+	}
+
+	.widget h3 span {
+		float: right;
+	}
+
+	.widget h3 span:hover {
+		cursor: pointer;
+		background-color: #e7e7e7;
+		border-radius: 20px;
+	}
+
+	/* PROFILE */
+	.profile-photo {
+		width: 80px;
+		height: 80px;
+		margin: 10px auto;
+		border-radius: 100px;
+		border: 1px solid #e7e7e7;
+		background: url(@Url.Content("~/content/web/Customers/ISLAT.jpg")) no-repeat 50% 50%;
+	}
+
+	#profile div {
+		text-align: center;
+	}
+
+	#profile h4 {
+		width: auto;
+		margin: 0 0 5px;
+		font-size: 1.2em;
+		color: #1f97f7;
+	}
+
+	#profile p {
+		margin: 0 0 10px;
+	}
+
+	/* BLOGS & NEWS */
+	#blogs div,
+	#news div {
+		padding: 0 20px 20px;
+	}
+
+	#teammates h4,
+	#blogs h4,
+	#news h4 {
+		width: auto;
+		margin: 20px 0 2px;
+		font-size: 1.4em;
+		color: #1f97f7;
+		font-weight: normal;
+	}
+
+	.blog-info {
+		margin: 0 0 10px;
+		font-size: .9em;
+		color: #787878;
+	}
+
+	#sidebar #blogs h4 {
+		font-size: 1em;
+	}
+
+	#sidebar #blogs p {
+		display: none;
+	}
+
+	#sidebar #blogs .blog-info {
+		display: block;
+	}
+
+	#main-content #news h4 {
+		font-size: 1.2em;
+		line-height: 1.4em;
+	}
+
+	#main-content #news h4 span {
+		display: block;
+		float: left;
+		width: 100px;
+		color: #000;
+		padding-right: 10px;
+	}
+
+	#sidebar #news h4 {
+		font-size: 1em;
+	}
+
+	#sidebar #news h4 span {
+		display: block;
+		margin-bottom: 3px;
+		color: #000;
+	}
+
+	/* TEAMMATES */
+	.team-mate:after {
+		content: ".";
+		display: block;
+		height: 0;
+		line-height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+
+	#teammates .team-mate h4 {
+		font-size: 1.4em;
+		font-weight: normal;
+		margin-top: 12px;
+	}
+
+	.team-mate p {
+		margin: 0;
+	}
+
+	.team-mate img {
+		float: left;
+		margin: 0 15px 0 0;
+		border: 1px solid #e7e7e7;
+		border-radius: 60px;
+	}
+
+	#panelbar {
+		max-width: 400px;
+		margin: 0 auto;
+	}
+	.teamMate:after {
+		content: ".";
+		display: block;
+		height: 0;
+		line-height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+	.teamMate h2 {
+		font-size: 1.4em;
+		font-weight: normal;
+		padding-top: 20px;
+	}
+	.teamMate p {
+		margin: 0;
+	}
+	.teamMate img {
+		float: left;
+		margin: 5px 15px 5px 5px;
+		border: 1px solid #ccc;
+		border-radius: 50%;
+	}
+</style>
